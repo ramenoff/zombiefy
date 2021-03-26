@@ -1,14 +1,10 @@
 import discord
+import os
 from main import *
 
-FILE_NAME = "zombieways.txt"
+PHRASES = ['IN MY HEAD IN MY HEAD', 'IN MY HEAD, IN MY HEAD', 'IN YOUR HEAD IN YOUR HEAD', 'IN YOUR HEAD, IN YOUR HEAD']
 
-PHRASE_1A = "IN MY HEAD IN MY HEAD"
-PHRASE_1B = "IN MY HEAD, IN MY HEAD"
-PHRASE_2A = "IN YOUR HEAD IN YOUR HEAD"
-PHRASE_2B = "IN YOUR HEAD, IN YOUR HEAD"
-
-RESPONSE_1 = "Zombie, Zombie, Zombie-ie-ie-ie"
+RESPONSE = "Zombie, Zombie, Zombie-ie-ie-ie"
 
 lines = open(FILE_NAME, "r")
 zombie_triggers = lines.read().splitlines()
@@ -33,8 +29,7 @@ async def on_message(message):
         zombie_link = returnVideo()
         await message.channel.send(zombie_link)
 
-    
-    if (PHRASE_1A in message.content.upper() or PHRASE_1B in message.content.upper()  or PHRASE_2A in message.content.upper()  or PHRASE_2B in message.content.upper()) :
-        await message.channel.send(RESPONSE_1)
+    if any(ext in message.content.upper() for ext in phrases):
+        await message.channel.send(RESPONSE)
 
-client.run('NzUxMTQ3NTg4ODg3MTE3OTQ2.X1E2tA.5aCwIzJHWDgor1z1GspMPcKsxVE')
+client.run(KEY)
